@@ -112,19 +112,5 @@ Open the interactive docs:
 Code
 http://127.0.0.1:8000/docs
 
-📁 Project Structure
-Code
-app/
-│── main.py               # FastAPI routes
-│── ai_service.py         # AI logic (summary, rephrase, alternatives)
-│── schemas.py            # Pydantic models
-│── __init__.py
-│── __pycache__/
-│
-├── text_tool.py          # Standalone summariser/rephraser script
-├── sample.txt            # Example input text
-├── requirements.txt
-└── README.md
-
 🤝 Contributing
 Contributions are welcome — feel free to open issues or submit pull requests.
