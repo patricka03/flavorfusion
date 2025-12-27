@@ -1,71 +1,130 @@
-# flavorfusion
-🚀 AI‑Powered Text Summarizer & Enhancer
+🍲 FlavorFusion AI – Cloud‑Native Recipe API with AI Enhancements
 
+FlavorFusion AI is a lightweight, cloud‑native recipe API that blends traditional recipe management with modern AI‑powered enhancements.
+It allows users to store recipes, generate AI‑written summaries, rephrase text in custom tones, and get ingredient substitutions — all through clean, well‑structured FastAPI endpoints.
 
-
-
-A lightweight, AI‑driven Python tool that summarises long‑form text and rephrases it in custom tones.
-Perfect for content creators, writers, and anyone who wants fast, consistent text transformations.
 ✨ Features
-🔹 Smart Summarisation
-Condenses long paragraphs into 2–3 crisp sentences
-Preserves meaning while improving clarity
-🔹 Tone‑Controlled Rephrasing
-Rewrites the original text in any tone you choose:
+🔹 AI‑Generated Recipe Summaries
+Automatically condense recipe instructions into 2–3 sentence summaries focusing on:
+Flavour profile
+Cooking style
+Key preparation steps
+
+🔹 Ingredient Substitution Suggestions
+Ask the API for alternatives to any ingredient and receive exactly 3 AI‑generated substitutes.
+
+🔹 Tone‑Controlled Text Rephrasing
+Rephrase any text in a tone of your choice:
 Professional
 Casual
 Humorous
 Persuasive
 Shakespearean
 Pirate‑speak
-…and anything else you can imagine
-🔹 Flexible Input
-Provide a .txt file
-Or let the script use its built‑in default text
-🔹 Clean CLI Interface
-Simple command‑line usage powered by argparse.
-🧠 How It Works
-The script (text_tool.py) performs three steps:
-Load text  
-Reads from a file or uses a default paragraph.
-Summarise  
-Sends the text to the OpenAI API with a strict 2–3 sentence constraint.
-Rephrase  
-Rewrites the original text in a user‑defined tone.
-All results print cleanly to the console.
-🛠️ Installation
+…or anything else you specify
+
+🔹 Simple, Clean REST API
+Built with FastAPI for:
+Automatic documentation
+Type‑safe request/response models
+Async performance
+
+🚀 API Endpoints
+Root
+GET /  
+Returns a welcome message.
+List Recipes
+GET /recipes  
+Returns all stored recipes (in‑memory).
+Get Recipe by ID
+GET /recipes/{recipe_id}  
+Returns a single recipe or an error if not found.
+Add Recipe (AI Summary Included)
+POST /recipes  
+Request body (example):
+json
+{
+  "title": "Beef Stew",
+  "ingredients": ["beef", "carrots", "onions"],
+  "instructions": "Brown the beef, simmer with vegetables for 2 hours."
+}
+Response:
+json
+{
+  "message": "Recipe added",
+  "id": 0,
+  "summary": "AI‑generated 2–3 sentence summary..."
+}
+Ingredient Alternatives
+GET /ingredients/{ingredient}/alternatives  
+Returns exactly 3 AI‑generated substitutes.
+Rephrase Text
+POST /rephrase  
+Request body:
+json
+{
+  "text": "This stew is hearty and delicious.",
+  "tone": "shakespearean"
+}
+Response:
+json
+{
+  "original": "...",
+  "tone": "shakespearean",
+  "rephrased": "AI‑generated 2–3 sentence rephrasing..."
+}
+
+🧠 AI Service Logic
+FlavorFusion AI uses OpenAI’s API to power three core features:
+1. Recipe Summaries
+Model: gpt-3.5-turbo (or your updated model)
+Output: exactly 2–3 sentences
+Focus: flavour, cooking style, key steps
+2. Text Rephrasing
+Tone is fully user‑defined
+Output: 2–3 sentences
+Great for creative or professional rewriting
+3. Ingredient Alternatives
+Returns exactly 3 substitutes
+Clean comma‑separated parsing
+
+🛠️ Tech Stack
+FastAPI – high‑performance Python API framework
+Python 3.10+
+OpenAI API – generative AI capabilities
+Uvicorn – ASGI server
+
+📦 Installation & Setup
 Clone the repo:
 bash
-git clone <your-private-repo-url>
-cd <repo>
+git clone <your-repo-url>
+cd flavorfusion_api
 Install dependencies:
 bash
 pip install -r requirements.txt
 Set your OpenAI API key:
 bash
 export OPENAI_API_KEY="your-key-here"
-▶️ Usage
-Run with a text file:
+Run the server:
 bash
-python3 text_tool.py --input sample.txt --tone "shakespearean"
-Run with default text:
-bash
-python3 text_tool.py --tone "professional"
+uvicorn app.main:app --reload
+Open the interactive docs:
+Code
+http://127.0.0.1:8000/docs
+
 📁 Project Structure
 Code
-.
-├── text_tool.py
+app/
+│── main.py               # FastAPI routes
+│── ai_service.py         # AI logic (summary, rephrase, alternatives)
+│── schemas.py            # Pydantic models
+│── __init__.py
+│── __pycache__/
+│
+├── text_tool.py          # Standalone summariser/rephraser script
+├── sample.txt            # Example input text
 ├── requirements.txt
-├── sample.txt
-└── AI-Powered Text Tool - Technical Approach & AI Utilisation Report.md
-📦 Dependencies
-Code
-openai>=1.0.0
-python-dotenv
-🧩 Notes
-This repository is intentionally simple to demonstrate AI integration and prompt engineering.
-The FastAPI app in the /app directory is optional and not required for the challenge, but it showcases additional engineering capability.
+└── README.md
+
 🤝 Contributing
 Contributions are welcome — feel free to open issues or submit pull requests.
-📜 License
-MIT License.
