@@ -1,0 +1,11 @@
+x = ['EAT', 'TEA', 'TAN', 'ATE', 'NAT', 'BAT']
+
+groups = {}
+
+for i in x:
+    key = ''.join(sorted(i))
+    # print(key)
+    if key not in groups:
+        groups[key] = []
+    groups[key].append(i)
+print(list(groups.values()))
